@@ -1,4 +1,5 @@
 from typing import List
+from functools import reduce
 
 
 def has_decreasing(input: List[int], maxV: int = 0) -> bool:
@@ -38,19 +39,10 @@ def has_double_but_not_larger(input: List[int], count: int = 0) -> bool:
             return has_double_but_not_larger([head2]+tail)
 
 
-def is_password(input: List[int]) -> bool:
+def is_password(input: int) -> bool:
+    input = [int(d) for d in str(input)]
     return has_double(input) and not has_decreasing(input) and has_double_but_not_larger(input)
 
 
-testcase = "112233"
-print(has_double_but_not_larger(list(testcase)))
-print(is_password(list(testcase)))
-
-start = 231832
-end = 767346
-
-count = 0
-for pw in range(start, end):
-    if is_password(list(str(pw))):
-        count += 1
-print(count)
+# Functional application
+print(reduce(lambda x,y: x+y,list(map(lambda x: 1 if is_password(x) else 0, list(range(231832, 767346))))))
